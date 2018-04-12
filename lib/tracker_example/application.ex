@@ -12,7 +12,8 @@ defmodule TrackerExample.Application do
       supervisor(TrackerExampleWeb.Endpoint, []),
       # Start your own worker by calling: TrackerExample.Worker.start_link(arg1, arg2, arg3)
       # worker(TrackerExample.Worker, [arg1, arg2, arg3]),
-      supervisor(TrackerExampleWeb.RoomPresence, [])
+      supervisor(TrackerExampleWeb.RoomPresence, []),
+      worker(TrackerExampleWeb.RoomTracker, [[name: TrackerExampleWeb.RoomTracker, pubsub_server: TrackerExample.PubSub]])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
