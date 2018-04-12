@@ -1,6 +1,5 @@
 defmodule TrackerExampleWeb.RoomChannel do
   use TrackerExampleWeb, :channel
-  alias TrackerExampleWeb.RoomPresence, as: Presence
 
   def join("room:lobby", payload, socket) do
     if authorized?(payload) do
@@ -25,7 +24,7 @@ defmodule TrackerExampleWeb.RoomChannel do
   end
 
   def handle_info(:after_join, socket) do
-    {:ok, _} = Presence.track(socket, :rand.uniform(100), %{})
+    {:ok, _} = Phoenix.Tracker.track(TrackerExampleWeb.RoomTracker, self(), "room:lobby", :rand.uniform(100), %{})
     {:noreply, socket}
   end
 
